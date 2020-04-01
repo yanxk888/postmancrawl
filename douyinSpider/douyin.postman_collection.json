@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "7c2d3b6c-2ddf-4f03-bfc0-3a5be9bc6686",
+		"name": "抖音爬虫 ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "视频详细信息",
+			"item": [
+				{
+					"name": "获取视频评论信息",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Connection",
+								"value": "keep-alive"
+							},
+							{
+								"key": "Pragma",
+								"value": "no-cache"
+							},
+							{
+								"key": "Cache-Control",
+								"value": "no-cache"
+							},
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+							},
+							{
+								"key": "content-type",
+								"value": "application/json"
+							},
+							{
+								"key": "Origin",
+								"value": "https://live.kuaishou.com"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-origin"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Referer",
+								"value": "https://live.kuaishou.com/u/3xg76693px3hce4/3x2wczc6ctujn7e?did=web_73084f75dcd8aef2eab84924e7dfbd85"
+							},
+							{
+								"key": "Accept-Language",
+								"value": "zh-CN,zh;q=0.9"
+							},
+							{
+								"key": "Cookie",
+								"value": "kuaishou.live.bfb1s=3e261140b0cf7444a0ba411c6f227d88; clientid=3; did=web_73084f75dcd8aef2eab84924e7dfbd85; client_key=65890b29; didv=1585493643612; Hm_lvt_86a27b7db2c5c0ae37fee4a8a35033ee=1585493648; Hm_lpvt_86a27b7db2c5c0ae37fee4a8a35033ee=1585493648; userId=1833284269; kuaishou.live.web_st=ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAdzybTN0dHnFttHSD0XEPvET0gZrfJ4dZJbd7hQyhulNIbZ5fB0yZddz3Y143r3-_EeR7oPTdlc5Q4uXwlJtgQG7JEtfe_vHGXWMH_5mt5iP8BwoL7VIIBl3hcULCy86PyN3ZYgJJtnVaecTgSDuX9G083n_QWStbYJnuFF-o9bbVgsSOuDPWu0htVoQVCA-6nIVyfp8YIOvT8L1GMpbhRQaEqzjCHq0fUXesXMf4ciyRnDKKyIgtpxdMQXUPQo6JHqcyoWLiewaO6IQK90NmsTGMnm8444oBTAB; kuaishou.live.web_ph=4313949374b422553a20d9d32da5f4205803; userId=1833284269"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"operationName\":\"commentListQuery\",\"variables\":{\"pcursor\":\"\",\"photoId\":{{pid}},\"page\":1,\"count\":20},\"query\":\"query commentListQuery($photoId: String, $page: Int, $pcursor: String, $count: Int) {shortVideoCommentList(photoId: $photoId, page: $page, pcursor: $pcursor, count: $count) {commentCount  realCommentCount  pcursor   commentList {   commentId     authorId    authorName     content    headurl   timestamp     authorEid    status    subCommentCount      subCommentsPcursor      likedCount      liked     subComments {       commentId        authorId      authorName     content      headurl       timestamp        authorEid       status       replyToUserName       replyTo       replyToEid        __typename      }      __typename   }    __typename  }}\"}"
+						},
+						"url": {
+							"raw": "https://live.kuaishou.com/graphql",
+							"protocol": "https",
+							"host": [
+								"live",
+								"kuaishou",
+								"com"
+							],
+							"path": [
+								"graphql"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "获取作者视频列表",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d4ed03c2-dfab-4afd-a6c9-084333142fd3",
+						"exec": [
+							"const req = {",
+							"    url:'http://localhost:5050/api/sendphotos',",
+							"    method:'POST',",
+							"    header:'Content-Type:application/json',",
+							"    body:{",
+							"        mode:'raw',",
+							"        raw:JSON.stringify(pm.response.json())",
+							"    }",
+							"}",
+							"",
+							"pm.sendRequest(req, function (err, response) {",
+							"    console.log(response.json());",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "Pragma",
+						"value": "no-cache"
+					},
+					{
+						"key": "Cache-Control",
+						"value": "no-cache"
+					},
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "Sec-Fetch-Dest",
+						"value": "empty"
+					},
+					{
+						"key": "User-Agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "Origin",
+						"value": "https://live.kuaishou.com"
+					},
+					{
+						"key": "Sec-Fetch-Site",
+						"value": "same-origin"
+					},
+					{
+						"key": "Sec-Fetch-Mode",
+						"value": "cors"
+					},
+					{
+						"key": "Referer",
+						"value": "https://live.kuaishou.com/profile/3xg76693px3hce4"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "zh-CN,zh;q=0.9"
+					},
+					{
+						"key": "Cookie",
+						"value": "kuaishou.live.bfb1s=3e261140b0cf7444a0ba411c6f227d88; clientid=3; did=web_73084f75dcd8aef2eab84924e7dfbd85; client_key=65890b29; didv=1585493643612; Hm_lvt_86a27b7db2c5c0ae37fee4a8a35033ee=1585493648; Hm_lpvt_86a27b7db2c5c0ae37fee4a8a35033ee=1585493648; userId=1833284269; userId=1833284269; kuaishou.live.web_st=ChRrdWFpc2hvdS5saXZlLndlYi5zdBKgAWSIJy1ndYn7kyxpsXZmAGKUqYNNKcMddpBCOK8N6z9BvTOyoTmgIxHCMGDGHZD4thNEIo2b7tvYhp5sZberSJp9NqWRH3nxJcZIOzSGVx8K53YXTVePGQfMbIbeKv2Og_8dW8FsAQoGQqtROOy5rNnbwAJyOFsJqjMzQU9Duh8OcLzWvVCK9ue41BYtjrDcuYVw3XKLMtGV9isSSV-WP_waEhq2DZZ7DUHSmXUzdRyAf3O3USIgf5VIOG9F6QSo5XS2q__sLrl0ioh2cxjWvSOV8ICe_PAoBTAB; kuaishou.live.web_ph=9a7c95e21a2199a24c50124fa4aaeb38fa3f"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"operationName\":\"privateFeedsQuery\",\"variables\":{\"principalId\":\"3xg76693px3hce4\",\"pcursor\":\"\",\"count\":24},\"query\":\"query privateFeedsQuery($principalId: String, $pcursor: String, $count: Int) {  privateFeeds(principalId: $principalId, pcursor: $pcursor, count: $count) {   pcursor    list {      id     thumbnailUrl      poster      workType     type     useVideoPlayer     imgUrls      imgSizes      magicFace      musicName      caption     location     liked     onlyFollowerCanComment      relativeHeight     timestamp      width      height     counts {        displayView       displayLike        displayComment       __typename      }      user {      id       eid       name        avatar       __typename      }     expTag      __typename    }    __typename  }}\"}"
+				},
+				"url": {
+					"raw": "https://live.kuaishou.com/m_graphql",
+					"protocol": "https",
+					"host": [
+						"live",
+						"kuaishou",
+						"com"
+					],
+					"path": [
+						"m_graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f017d53a-eae6-4acc-91c4-742bb9e569be",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "911474a6-ea02-4bff-986b-39deede5a383",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
