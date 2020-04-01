@@ -13,7 +13,7 @@
 3.  导出postman runner所需的执行文件
 
 ```
-mongoexport -d douyin -c photos -f pid --type csv -o ~/working/testdata/pids.csv
+mongoexport -d douyin -c photos -f pid --type csv -o pids.csv
 ```
 4. 启动集合的runer，data属性中导入执行文件
 
