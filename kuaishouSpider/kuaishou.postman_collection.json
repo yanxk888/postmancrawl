@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "7c2d3b6c-2ddf-4f03-bfc0-3a5be9bc6686",
-		"name": "抖音爬虫 ",
+		"name": "快手爬虫",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -10,6 +10,35 @@
 			"item": [
 				{
 					"name": "获取视频评论信息",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f824a7e2-a2a3-4247-bb55-9691d7c3e951",
+								"exec": [
+									"const photoId = JSON.parse(pm.request.body.raw).variables.photoId",
+									"const dt = {",
+									"    photoId:photoId,",
+									"    data:pm.response.json().data",
+									"}",
+									"const req = {",
+									"    url:'http://localhost:5050/api/sendcomments',",
+									"    method:'POST',",
+									"    header:'Content-Type:application/json',",
+									"    body:{",
+									"        mode:'raw',",
+									"        raw:JSON.stringify(dt)",
+									"    }",
+									"}",
+									"",
+									"pm.sendRequest(req, function (err, response) {",
+									"    console.log(response.json());",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -68,7 +97,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"operationName\":\"commentListQuery\",\"variables\":{\"pcursor\":\"\",\"photoId\":{{pid}},\"page\":1,\"count\":20},\"query\":\"query commentListQuery($photoId: String, $page: Int, $pcursor: String, $count: Int) {shortVideoCommentList(photoId: $photoId, page: $page, pcursor: $pcursor, count: $count) {commentCount  realCommentCount  pcursor   commentList {   commentId     authorId    authorName     content    headurl   timestamp     authorEid    status    subCommentCount      subCommentsPcursor      likedCount      liked     subComments {       commentId        authorId      authorName     content      headurl       timestamp        authorEid       status       replyToUserName       replyTo       replyToEid        __typename      }      __typename   }    __typename  }}\"}"
+							"raw": "{\"operationName\":\"commentListQuery\",\"variables\":{\"pcursor\":\"\",\"photoId\":\"{{pid}}\",\"page\":1,\"count\":10000},\"query\":\"query commentListQuery($photoId: String, $page: Int, $pcursor: String, $count: Int) {shortVideoCommentList(photoId: $photoId, page: $page, pcursor: $pcursor, count: $count) {commentCount  realCommentCount  pcursor   commentList {   commentId     authorId    authorName     content    headurl   timestamp     authorEid    status    subCommentCount      subCommentsPcursor      likedCount      liked     subComments {       commentId        authorId      authorName     content      headurl       timestamp        authorEid       status       replyToUserName       replyTo       replyToEid        __typename      }      __typename   }    __typename  }}\"}",
+							"options": {
+								"raw": {}
+							}
 						},
 						"url": {
 							"raw": "https://live.kuaishou.com/graphql",
@@ -172,7 +204,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"operationName\":\"privateFeedsQuery\",\"variables\":{\"principalId\":\"3xg76693px3hce4\",\"pcursor\":\"\",\"count\":24},\"query\":\"query privateFeedsQuery($principalId: String, $pcursor: String, $count: Int) {  privateFeeds(principalId: $principalId, pcursor: $pcursor, count: $count) {   pcursor    list {      id     thumbnailUrl      poster      workType     type     useVideoPlayer     imgUrls      imgSizes      magicFace      musicName      caption     location     liked     onlyFollowerCanComment      relativeHeight     timestamp      width      height     counts {        displayView       displayLike        displayComment       __typename      }      user {      id       eid       name        avatar       __typename      }     expTag      __typename    }    __typename  }}\"}"
+					"raw": "{\"operationName\":\"privateFeedsQuery\",\"variables\":{\"principalId\":\"3xg76693px3hce4\",\"pcursor\":\"\",\"count\":24},\"query\":\"query privateFeedsQuery($principalId: String, $pcursor: String, $count: Int) {  privateFeeds(principalId: $principalId, pcursor: $pcursor, count: $count) {   pcursor    list {      id     thumbnailUrl      poster      workType     type     useVideoPlayer     imgUrls      imgSizes      magicFace      musicName      caption     location     liked     onlyFollowerCanComment      relativeHeight     timestamp      width      height     counts {        displayView       displayLike        displayComment       __typename      }      user {      id       eid       name        avatar       __typename      }     expTag      __typename    }    __typename  }}\"}",
+					"options": {
+						"raw": {}
+					}
 				},
 				"url": {
 					"raw": "https://live.kuaishou.com/m_graphql",
